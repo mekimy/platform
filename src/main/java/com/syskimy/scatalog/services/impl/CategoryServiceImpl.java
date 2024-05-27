@@ -3,6 +3,7 @@ package com.syskimy.scatalog.services.impl;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 import com.syskimy.scatalog.daos.services.CategoryDaoService;
+import com.syskimy.scatalog.daos.specifications.CategorySpecification;
 import com.syskimy.scatalog.entities.CategoryEntity;
 import com.syskimy.scatalog.exceptions.InternalServerErrorException;
 import com.syskimy.scatalog.exceptions.enums.InternalServerErrorExceptionTitleEnum;
@@ -64,17 +65,10 @@ public class CategoryServiceImpl implements CategoryService {
 
             List<CsvCategoryResource> list = csvToBean.parse();
 
-            int i = 0;
             for (CsvCategoryResource row: list) {
                 CategoryPostResource resource = new CategoryPostResource();
                 resource.setName(row.getName());
                 this.create(resource);
-
-                if (i == 1) {
-                    throw new InternalServerErrorException(InternalServerErrorExceptionTitleEnum.CSV_IMPORT, "transact");
-                }
-
-                i++;
             }
 
         } catch (Exception ex) {
@@ -83,5 +77,20 @@ public class CategoryServiceImpl implements CategoryService {
         }
 
         return ResponseEntity.noContent().build();
+    }
+
+    @Override
+    public ResponseEntity<CategoryGetResource> findById(Long categoryId) {
+        log.debug("Will retrieve a category with id {} from the database...", categoryId);
+        CategoryEntity category = categoryDaoService.findOne(
+                CategorySpecification.withId(categoryId)
+        );
+        log.info("Retrieved a category with data {}", category);
+
+        log.debug("Will map the category entity to get resources...");
+        CategoryGetResource resource = categoryMapper.entityToGetResource(category);
+        log.info("Category mapped successfully {}", resource);
+
+        return ResponseEntity.ok(resource);
     }
 }

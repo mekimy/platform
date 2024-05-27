@@ -2,6 +2,7 @@ package com.syskimy.scatalog.controllers.impl;
 
 import com.syskimy.scatalog.controllers.CategoryController;
 import com.syskimy.scatalog.resources.category.CategoryGetResource;
+import com.syskimy.scatalog.resources.category.CategoryPatchResource;
 import com.syskimy.scatalog.resources.category.CategoryPostResource;
 import com.syskimy.scatalog.services.CategoryService;
 import lombok.RequiredArgsConstructor;
@@ -29,5 +30,15 @@ public class CategoryControllerImpl implements CategoryController {
     @Override
     public ResponseEntity<Void> importCategories(MultipartFile file) {
         return categoryService.importCategories(file);
+    }
+
+    @Override
+    public ResponseEntity<CategoryGetResource> findById(Long id) {
+        return categoryService.findById(id);
+    }
+
+    @Override
+    public ResponseEntity<CategoryGetResource> patchById(Long id, CategoryPatchResource resource) {
+        return null;
     }
 }

@@ -9,4 +9,5 @@ public interface CategoryDaoService {
     CategoryEntity save(CategoryEntity category);
     Page<CategoryEntity> findPaginated(Specification<CategoryEntity> specification, Pageable pageable);
     boolean existsBy(Specification<CategoryEntity> specification);
+    CategoryEntity findOne(Specification<CategoryEntity> specification);
 }

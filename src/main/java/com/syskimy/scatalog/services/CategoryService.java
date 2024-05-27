@@ -1,6 +1,5 @@
 package com.syskimy.scatalog.services;
 
-import com.syskimy.scatalog.entities.CategoryEntity;
 import com.syskimy.scatalog.resources.category.CategoryGetResource;
 import com.syskimy.scatalog.resources.category.CategoryPostResource;
 import org.springframework.data.domain.Page;
@@ -12,4 +11,5 @@ public interface CategoryService {
     ResponseEntity<CategoryGetResource> create(CategoryPostResource categoryPostResource);
     ResponseEntity<Page<CategoryGetResource>> findPaginated(Pageable pageable);
     ResponseEntity<Void> importCategories(MultipartFile file);
+    ResponseEntity<CategoryGetResource> findById(Long categoryId);
 }

@@ -2,6 +2,7 @@ package com.syskimy.scatalog.controllers.exception.impl;
 
 import com.syskimy.scatalog.controllers.exception.CatalogExceptionController;
 import com.syskimy.scatalog.exceptions.InternalServerErrorException;
+import com.syskimy.scatalog.exceptions.ResourceNotFoundException;
 import com.syskimy.scatalog.exceptions.base.AbstractBaseException;
 import com.syskimy.scatalog.exceptions.enums.MethodArgumentsExceptionTitleEnum;
 import com.syskimy.scatalog.resources.errors.ErrorDetailResource;
@@ -53,6 +54,7 @@ public class CatalogExceptionControllerImpl implements CatalogExceptionControlle
     @Override
     @ExceptionHandler({
             InternalServerErrorException.class,
+            ResourceNotFoundException.class,
     })
     public ResponseEntity<ErrorDetailResource> handleGenericExceptions(AbstractBaseException e, HttpServletRequest request) {
         ErrorDetailResource errorDetailResource = new ErrorDetailResource();

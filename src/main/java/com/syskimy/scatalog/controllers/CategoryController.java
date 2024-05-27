@@ -1,6 +1,7 @@
 package com.syskimy.scatalog.controllers;
 
 import com.syskimy.scatalog.resources.category.CategoryGetResource;
+import com.syskimy.scatalog.resources.category.CategoryPatchResource;
 import com.syskimy.scatalog.resources.category.CategoryPostResource;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
@@ -19,4 +20,11 @@ public interface CategoryController {
 
     @PostMapping("/import")
     ResponseEntity<Void> importCategories(@RequestParam("file") MultipartFile file);
+
+    @GetMapping("/{id}")
+    ResponseEntity<CategoryGetResource> findById(@PathVariable Long id);
+
+    @PatchMapping("/{id}")
+    ResponseEntity<CategoryGetResource> patchById(@PathVariable Long id,
+                                                  @Valid @RequestBody CategoryPatchResource resource);
 }

@@ -7,4 +7,8 @@ public class CategorySpecification {
     public static Specification<CategoryEntity> withName(String name) {
         return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("name"), name);
     }
+
+    public static Specification<CategoryEntity> withId(Long id) {
+        return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("id"), id);
+    }
 }
